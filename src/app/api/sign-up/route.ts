@@ -73,6 +73,7 @@ export async function POST(request: NextRequest) {
         {
           success: true,
           message: "User registered successfully . Please verify your email",
+          emailResponse
         },
         { status: 201 }
       );
