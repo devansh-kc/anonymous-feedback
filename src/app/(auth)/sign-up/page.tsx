@@ -30,7 +30,7 @@ function page() {
   const [isCheckingUserName, setIsCheckingUserName] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [togglePassword, setTogglePassword] = useState(false);
-  const debounced = useDebounceCallback(setUserName, 1000);
+  const debounced = useDebounceCallback(setUserName, 2000);
 
   const { toast } = useToast();
 

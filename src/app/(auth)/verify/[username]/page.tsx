@@ -38,9 +38,8 @@ function VerifyAccount() {
       toast({
         title: "User verified",
         description: response.data?.message,
-        variant: "default",
       });
-      router.replace("/sign-in")
+      router.replace("/sign-in");
     } catch (error: any) {
       console.log("error from verify email  ", error);
       const axiosError = error as AxiosError<ApiResponse>;
