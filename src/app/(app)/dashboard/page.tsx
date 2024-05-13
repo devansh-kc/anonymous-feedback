@@ -54,6 +54,7 @@ function page() {
       try {
         const response = await axios.get<ApiResponse>("/api/get-message");
         setMessage(response.data.messages || []);
+
         if (refresh) {
           toast: ({
             title: "Refreshed Messages",
@@ -101,9 +102,9 @@ function page() {
       });
     }
   };
-  const { username } = session?.user as User;
-  const baseUrl = `${window.location.protocol}//${window.location.hostname}`;
-  const profileUrl = `${baseUrl}//u/${username}`;
+  const username = session?.user.username;
+  const baseUrl = `${window.location.protocol}//${window.location.host}`;
+  const profileUrl = `${baseUrl}/u/${username}`;
   if (!session || !session.user) {
     return <div>please Log In</div>;
   }

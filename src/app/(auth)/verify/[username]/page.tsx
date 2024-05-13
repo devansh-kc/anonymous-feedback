@@ -1,7 +1,7 @@
 "use client";
 import { useToast } from "@/components/ui/use-toast";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { verifySchema } from "@/schemas/verify.schema";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -19,6 +19,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+
 import { Input } from "@/components/ui/input";
 
 function VerifyAccount() {
@@ -73,18 +80,24 @@ function VerifyAccount() {
                   <FormItem>
                     <FormLabel>code</FormLabel>
                     <FormControl>
-                      <Input
-                        type="text"
-                        inputMode="numeric"
-                        autoComplete="one-time-code"
-                        placeholder="enter code .... "
-                        {...field}
-                      />
+                      <InputOTP maxLength={6} {...field}>
+                        <InputOTPGroup >
+                          <InputOTPSlot index={0} />
+                          <InputOTPSlot index={1} />
+                          <InputOTPSlot index={2} />
+                          <InputOTPSlot index={3} />
+                          <InputOTPSlot index={4} />
+                          <InputOTPSlot index={5} />
+                        </InputOTPGroup>
+                      </InputOTP>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+              <div className="text-left text-sm">
+                Enter your one-time password.
+              </div>
               <Button type="submit">Submit</Button>
             </form>
           </Form>
