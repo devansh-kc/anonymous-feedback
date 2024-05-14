@@ -67,8 +67,9 @@ export async function GET(request: Request) {
 
   const session = await getServerSession(authOptions);
   const user: User = session?.user;
+  console.log(user);
 
-  if (!session || !session.user) {
+  if (!session || !user) {
     return Response.json(
       {
         success: false,
@@ -78,7 +79,7 @@ export async function GET(request: Request) {
     );
   }
   const userId = user._id;
-  const foundUser = await UserModel.findById(userId);
+  const foundUser = await UserModel.findById(user._id);
   try {
     if (!foundUser) {
       return Response.json(
@@ -104,7 +105,7 @@ export async function GET(request: Request) {
         success: true,
         message: error,
       },
-      { status: 500  }
+      { status: 500 }
     );
   }
 

@@ -11,15 +11,15 @@ import { ApiResponse } from "@/types/apiResponse";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, RefreshCcw } from "lucide-react";
+import { Loader, Loader2, RefreshCcw } from "lucide-react";
 import MessageCard from "@/components/MessageCard";
 import { User } from "next-auth";
 
 function page() {
   const [message, setMessage] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSwitchLoading, setIsSwitchLoading] = useState(false);
   const { toast } = useToast();
+  const [isSwitchLoading, setIsSwitchLoading] = useState(false);
   function handleDeleteMessage(messageId: string) {
     setMessage(message.filter((message) => message._id !== messageId));
   }
@@ -27,7 +27,7 @@ function page() {
   const form = useForm({
     resolver: zodResolver(acceptMessageSchema),
   });
-  const { register, handleSubmit, watch, setValue } = form;
+  const { register, watch, setValue } = form;
   const acceptMessage = watch("acceptMessage");
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true);
@@ -36,12 +36,12 @@ function page() {
       setValue("acceptMessage", response.data.isAcceptingMessages);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast: ({
+      toast({
         title: "Error",
         description:
           axiosError.response?.data.message ||
           "Failed to fetch message setting ",
-        varient: "destructive",
+        variant: "destructive",
       });
     } finally {
       setIsSwitchLoading(false);
@@ -56,31 +56,32 @@ function page() {
         setMessage(response.data.messages || []);
 
         if (refresh) {
-          toast: ({
+          toast({
             title: "Refreshed Messages",
             description: "Showing Latest Messages ",
           });
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
-        toast: ({
+        toast({
           title: "Error",
           description:
             axiosError.response?.data.message ||
             "Failed to fetch message setting ",
-          varient: "destructive",
+          variant: "destructive",
         });
       } finally {
         setIsLoading(false);
         setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessage]
+    [setIsLoading, setMessage, toast]
   );
   useEffect(() => {
     if (!session || !session.user) return;
     fetchMessage();
-  }, [session, setValue, fetchAcceptMessage, fetchMessage]);
+    fetchAcceptMessage();
+  }, [fetchAcceptMessage, fetchMessage]);
   const handleSwitchChange = async () => {
     try {
       const response = await axios.post<ApiResponse>("/api/accept-message", {
@@ -92,28 +93,29 @@ function page() {
         variant: "default",
       });
     } catch (error) {
+      console.log(error);
       const axiosError = error as AxiosError<ApiResponse>;
-      toast: ({
+      toast({
         title: "Error",
         description:
           axiosError.response?.data.message ||
           "Failed to fetch message setting ",
-        varient: "destructive",
+        variant: "destructive",
       });
     }
   };
   const username = session?.user.username;
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
-  const profileUrl = `${baseUrl}/u/${username}`;
+  // const profileUrl = `${baseUrl}/u/${username}`;
   if (!session || !session.user) {
     return <div>please Log In</div>;
   }
 
   function copyToClipboard() {
-    navigator.clipboard.writeText(profileUrl);
-    toast: ({
+    // navigator.clipboard.writeText();
+    toast({
       title: "Text Copied",
-      varient: "default",
+      variant: "default",
     });
   }
 
@@ -126,7 +128,7 @@ function page() {
         <div className="flex items-center">
           <input
             type="text"
-            value={profileUrl}
+            // value={profileUrl}
             disabled
             className="input input-bordered w-full p-2 mr-2"
           />
