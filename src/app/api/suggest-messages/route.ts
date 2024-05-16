@@ -1,11 +1,15 @@
 import OpenAI from "openai";
-import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextResponse } from "next/server";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { google, createGoogleGenerativeAI } from "@ai-sdk/google";
+import { generateText } from "ai";
 
-// Create an OpenAI API client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// const genAi = createGoogleGenerativeAI({
+//   baseURL: "https://generativelanguage.googleapis.com/v1beta",
+//   apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+// });
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY!);
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 export async function POST(req: Request) {
   const prompt =
@@ -13,23 +17,23 @@ export async function POST(req: Request) {
 
   try {
     // Ask OpenAI for a streaming chat completion given the prompt
-    const response = await openai.completions.create({
-      model: "gpt-3.5-turbo-instruct",
-      max_tokens: 400,
-      stream: true,
-      prompt,
-    });
-
-    // Convert the response into a friendly text-stream
-    const stream = OpenAIStream(response);
-    // Respond with the stream
-    return new StreamingTextResponse(stream);
+    const response = await model.generateContent(prompt);
+  
+    return NextResponse.json(
+      {
+        success: true,
+        message: response.response,
+      },
+      { status: 200 }
+    );
   } catch (error: any) {
-    if (error instanceof OpenAI.APIError) {
-      const { name, status, headers, message } = error;
-      return NextResponse.json({ name, status, headers, message }, { status });
-    } else {
-      console.log("error from suggest message route", error);
-    }
+    return NextResponse.json(
+      {
+        success: true,
+        message: error,
+      },
+      { status: 500 }
+    )
   }
+  
 }
