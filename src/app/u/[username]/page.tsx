@@ -21,11 +21,12 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { Axios } from "axios";
 import { useToast } from "@/components/ui/use-toast";
+import { NextResponse } from "next/server";
 
 function page() {
   const [isLoading, setIsLoading] = useState(false);
-  const {toast} = useToast()
-
+  const { toast } = useToast();
+  const [text, setText] = useState("");
   const form = useForm<z.infer<typeof messageSchema>>({
     resolver: zodResolver(messageSchema),
     defaultValues: {
@@ -52,11 +53,27 @@ function page() {
       toast({
         title: "error",
         description: response.data.message,
-        variant:"destructive"
+        variant: "destructive",
       });
     }
   }
 
+  function handleTextMessage(data: string) {
+    form.setValue("content", data);
+  }
+  async function generateText() {
+    try {
+      const response = await axios.post("/api/suggest-messages");
+      // console.log(response.data.candidates[0].)
+l    } catch (error) {
+      toast({
+        title: "error",
+        description:error,
+        // description: error,
+        variant: "destructive",
+      });
+    }
+  }
   return (
     <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
       <h1 className="text-4xl font-bold mb-6 text-center">
@@ -94,7 +111,9 @@ function page() {
       </Form>
       <div className="space-y-4 my-8">
         <div className="space-y-2">
-          <Button className="my-4">Suggest Message </Button>
+          <Button className="my-4" onClick={generateText}>
+            Suggest Message{" "}
+          </Button>
           <p>Click on any message below to select it.</p>
         </div>
         <Card>
@@ -104,6 +123,7 @@ function page() {
               <Button
                 className="bg-transparent border  text-black hover:bg-white"
                 key={index}
+                onClick={() => handleTextMessage(data)}
               >
                 {data}
               </Button>

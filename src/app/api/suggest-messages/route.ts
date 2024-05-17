@@ -1,8 +1,6 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { google, createGoogleGenerativeAI } from "@ai-sdk/google";
-import { generateText } from "ai";
 
 // const genAi = createGoogleGenerativeAI({
 //   baseURL: "https://generativelanguage.googleapis.com/v1beta",
@@ -18,11 +16,11 @@ export async function POST(req: Request) {
   try {
     // Ask OpenAI for a streaming chat completion given the prompt
     const response = await model.generateContent(prompt);
-  
+
     return NextResponse.json(
       {
         success: true,
-        message: response.response,
+        message: response.response
       },
       { status: 200 }
     );
@@ -33,7 +31,6 @@ export async function POST(req: Request) {
         message: error,
       },
       { status: 500 }
-    )
+    );
   }
-  
 }
