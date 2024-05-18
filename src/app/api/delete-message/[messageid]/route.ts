@@ -5,6 +5,7 @@ import UserModel from "@/models/User.model";
 import dbConnect from "@/lib/dbConnect";
 
 import { User } from "next-auth";
+import mongoose from "mongoose";
 
 export async function DELETE(
   request: Request,
@@ -29,7 +30,7 @@ export async function DELETE(
     const updatedResult = await UserModel.updateOne(
       { _id: user._id },
       {
-        $pull: { messages: messageId },
+        $pull: { messages: { _id: messageId } },
       }
     );
     if (updatedResult.modifiedCount == 0) {

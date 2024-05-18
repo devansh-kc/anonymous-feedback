@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
@@ -21,10 +20,11 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { Axios } from "axios";
 import { useToast } from "@/components/ui/use-toast";
-import { NextResponse } from "next/server";
+import { Loader2 } from "lucide-react";
 
 function page() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuggestButtonLoading, setIsSuggestButtonLoading] = useState(false);
   const { toast } = useToast();
   const [text, setText] = useState("");
   const form = useForm<z.infer<typeof messageSchema>>({
@@ -38,40 +38,57 @@ function page() {
   const initialMessageString =
     "What's your favorite movie?||Do you have any pets?||What's your dream job?";
   const params = useParams<{ username: string }>();
-  const InitialMessage = initialMessageString.split("||");
+  const specialChar = "||";
+
+  const StringSplit = (sentence: string): string[] => {
+    return sentence.split(specialChar);
+  };
+
   async function onMessageSubmmit(data: z.infer<typeof messageSchema>) {
-    const response = await axios.post("/api/send-message", {
-      username: params.username,
-      content: data.content,
-    });
-    if (response.data.success) {
-      toast({
-        title: "success",
-        description: response.data.message,
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post("/api/send-message", {
+        username: params.username,
+        content: data.content,
       });
-    } else {
+
+      if (response.data.success) {
+        toast({
+          title: "success",
+          description: response.data.message,
+        });
+      }
+      form.setValue("content","")
+    } catch (error: any) {
       toast({
         title: "error",
-        description: response.data.message,
+        description: error.message,
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
   function handleTextMessage(data: string) {
     form.setValue("content", data);
   }
-  async function generateText() {
+  async function onSuggestMessage() {
+    setIsSuggestButtonLoading(true);
     try {
-      const response = await axios.post("/api/suggest-messages");
-      // console.log(response.data.candidates[0].)
-l    } catch (error) {
+      const result = await axios.post("/api/suggest-messages");
+      const response = result.data.message.candidates[0].content.parts[0].text;
+      setText(response);
+      return response;
+    } catch (error: any) {
       toast({
         title: "error",
-        description:error,
-        // description: error,
+        description: error.message,
         variant: "destructive",
       });
+    } finally {
+      setIsSuggestButtonLoading(false);
     }
   }
   return (
@@ -103,15 +120,25 @@ l    } catch (error) {
               </>
             )}
           ></FormField>
-          <Button type="submit" disabled={!watchContent || isLoading}>
-            {" "}
-            Send it
-          </Button>
-        </form>
+          {isLoading ? (
+            <Button disabled>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </Button>
+          ) : (
+            <Button type="submit" disabled={isLoading || !watchContent}>
+              Send It
+            </Button>
+          )}
+        </form> 
       </Form>
       <div className="space-y-4 my-8">
         <div className="space-y-2">
-          <Button className="my-4" onClick={generateText}>
+          <Button
+            className="my-4"
+            onClick={onSuggestMessage}
+            disabled={isSuggestButtonLoading}
+          >
             Suggest Message{" "}
           </Button>
           <p>Click on any message below to select it.</p>
@@ -119,15 +146,25 @@ l    } catch (error) {
         <Card>
           <CardHeader className="font-bold "> Messages</CardHeader>
           <CardContent className="flex flex-col space-y-4">
-            {InitialMessage.map((data, index) => (
-              <Button
-                className="bg-transparent border  text-black hover:bg-white"
-                key={index}
-                onClick={() => handleTextMessage(data)}
-              >
-                {data}
-              </Button>
-            ))}
+            {text == ""
+              ? StringSplit(initialMessageString).map((data, index) => (
+                  <Button
+                    className="bg-transparent border  text-black hover:bg-white"
+                    key={index}
+                    onClick={() => handleTextMessage(data)}
+                  >
+                    {data}
+                  </Button>
+                ))
+              : StringSplit(text).map((data, index) => (
+                  <Button
+                    className="bg-transparent border  text-black hover:bg-white"
+                    key={index}
+                    onClick={() => handleTextMessage(data)}
+                  >
+                    {data}
+                  </Button>
+                ))}
           </CardContent>
         </Card>
       </div>

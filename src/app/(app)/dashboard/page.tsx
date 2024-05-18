@@ -16,12 +16,12 @@ import MessageCard from "@/components/MessageCard";
 import { User } from "next-auth";
 
 function page() {
-  const [message, setMessage] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
   function handleDeleteMessage(messageId: string) {
-    setMessage(message.filter((message) => message._id !== messageId));
+    setMessages(messages.filter((message) => message._id !== messageId));
   }
   const { data: session } = useSession();
   const form = useForm({
@@ -53,7 +53,7 @@ function page() {
       setIsSwitchLoading(false);
       try {
         const response = await axios.get<ApiResponse>("/api/get-message");
-        setMessage(response.data.messages || []);
+        setMessages(response.data.messages || []);
 
         if (refresh) {
           toast({
@@ -75,7 +75,7 @@ function page() {
         setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessage, toast]
+    [setIsLoading, setMessages, toast]
   );
   useEffect(() => {
     if (!session || !session.user) return;
@@ -118,7 +118,7 @@ function page() {
       variant: "default",
     });
   }
-
+  console.log(messages);
   return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
@@ -164,8 +164,8 @@ function page() {
         )}
       </Button>
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {message.length > 0 ? (
-          message.map((message, index) => (
+        {messages.length !==0 ? (
+          messages.map((message, index) => (
             <MessageCard
               key={message._id}
               message={message}

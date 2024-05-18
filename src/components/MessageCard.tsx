@@ -43,7 +43,7 @@ function MessageCard({ message, onMessageDelete }: messageCardProp) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
+        <CardTitle>{message.content}</CardTitle>
         <AlertDialog>
           <AlertDialogTrigger>
             <Button>
@@ -71,12 +71,6 @@ function MessageCard({ message, onMessageDelete }: messageCardProp) {
 
         <CardDescription>Card Description</CardDescription>
       </CardHeader>
-      {/* <CardContent>
-        <p>Card Content</p>
-      </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter> */}
     </Card>
   );
 }
