@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 export default function SignIn() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
 
@@ -43,10 +43,10 @@ export default function SignIn() {
       password: data.password,
     });
     if (result?.error) {
-      toast: ({
+      toast ({
         title: "Sign in failed",
         description: result.error,
-        varient: "destructive",
+        variant: "destructive",
       });
     }
     console.log(result);
@@ -108,6 +108,9 @@ export default function SignIn() {
                   </FormItem>
                 )}
               />
+              <p>
+                <Link href={"/forgot-password"}>Forgot password</Link>
+              </p>
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
