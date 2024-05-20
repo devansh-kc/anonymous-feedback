@@ -1,6 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User.model";
-import { User } from "lucide-react";
+import bcrypt from "bcryptjs"
 export async function POST(request: Request) {
   await dbConnect();
 

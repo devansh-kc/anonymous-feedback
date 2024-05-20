@@ -106,13 +106,13 @@ function page() {
   };
   const username = session?.user.username;
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
-  // const profileUrl = `${baseUrl}/u/${username}`;
+  const profileUrl = `${baseUrl}/u/${username}`;
   if (!session || !session.user) {
     return <div>please Log In</div>;
   }
 
   function copyToClipboard() {
-    // navigator.clipboard.writeText();
+    navigator.clipboard.writeText(profileUrl);
     toast({
       title: "Text Copied",
       variant: "default",
@@ -128,7 +128,7 @@ function page() {
         <div className="flex items-center">
           <input
             type="text"
-            // value={profileUrl}
+            value={profileUrl}
             disabled
             className="input input-bordered w-full p-2 mr-2"
           />
@@ -164,7 +164,7 @@ function page() {
         )}
       </Button>
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {messages.length !==0 ? (
+        {messages.length !== 0 ? (
           messages.map((message, index) => (
             <MessageCard
               key={message._id}
