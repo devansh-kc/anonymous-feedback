@@ -31,8 +31,7 @@ export async function middleware(request: NextRequest) {
 
   if (
     (!token && url.pathname.startsWith("/dashboard")) ||
-    url.pathname.startsWith("/verify") ||
-    url.pathname.startsWith("/forgot-password")
+    url.pathname.startsWith("/verify")
   ) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }

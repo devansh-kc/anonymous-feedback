@@ -40,7 +40,7 @@ function page() {
         code: data.code,
       });
       if ((response.status = 200)) {
-        router.push("/forgot-password/change-password");
+        router.push(`/forgot-password/${params.email}/change-password`);
       }
     } catch (error: any) {
       toast({
