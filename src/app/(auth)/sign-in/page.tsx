@@ -22,7 +22,15 @@ import { ApiResponse } from "@/types/apiResponse";
 import { useToast } from "@/components/ui/use-toast";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 export default function SignIn() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -43,7 +51,7 @@ export default function SignIn() {
       password: data.password,
     });
     if (result?.error) {
-      toast ({
+      toast({
         title: "Sign in failed",
         description: result.error,
         variant: "destructive",
@@ -57,83 +65,84 @@ export default function SignIn() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
-        <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Welcome Back to True Feedback
-          </h1>
-          <p className="mb-4">Sign in to continue your secret conversations</p>
-        </div>
-        <div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onHandleSignIn)}
-              className="space-y-6"
-            >
-              <FormField
-                control={form.control}
-                name="identifier"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="write username or email .... "
-                        {...field}
-                        onChange={(e) => {
-                          field.onChange(e);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="enter password .... "
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <p>
-                <Link href={"/forgot-password"}>Forgot password</Link>
-              </p>
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <Loader className="mr-3 h-4 w-4 animate-spin" /> Please wait
-                  </>
-                ) : (
-                  "Sign In"
-                )}
-              </Button>
-            </form>
-          </Form>
-          <div className="text-center mt-4">
-            <p>
-              Dont have account ?{" "}
-              <Link
-                href="/sign-up"
-                className="text-blue-600 hover:text-blue-800"
+    <div className="flex items-center justify-center h-screen">
+      <div>
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl">Sign in to your account</CardTitle>
+            <CardDescription>
+              Enter your email and password below to access your account.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onHandleSignIn)}
+                className="space-y-6"
               >
-                Sign Up
-              </Link>
-            </p>
-          </div>
-        </div>
+                <FormField
+                  control={form.control}
+                  name="identifier"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username || email</FormLabel>
+                      <FormControl>
+                        <Input
+                          required
+                          placeholder="write username or email .... "
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e);
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>password</FormLabel>
+                      <FormControl>
+                        <Input
+                          required
+                          type="password"
+                          placeholder="enter password .... "
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <p>
+                  <Link className="text-sm underline" href={"/forgot-password"}>
+                    Forgot password
+                  </Link>
+                </p>
+                <CardFooter className="flex items-center justify-between">
+                  <Link className="text-sm underline" href="/sign-up">
+                    Don't have an account? Sign up
+                  </Link>
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader className="mr-3 h-4 w-4 animate-spin" /> Please
+                        wait
+                      </>
+                    ) : (
+                      "Sign In"
+                    )}
+                  </Button>{" "}
+                </CardFooter>
+              </form>
+            </Form>
+          </CardContent>{" "}
+        </Card>
       </div>
     </div>
   );

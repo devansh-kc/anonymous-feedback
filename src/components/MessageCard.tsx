@@ -19,7 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
-import { X } from "lucide-react";
+import { TrashIcon, X } from "lucide-react";
 import { Message } from "@/models/Messages.model";
 import { useToast } from "./ui/use-toast";
 import axios from "axios";
@@ -41,37 +41,54 @@ function MessageCard({ message, onMessageDelete }: messageCardProp) {
     onMessageDelete(message._id);
   }
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{message.content}</CardTitle>
-        <AlertDialog>
-          <AlertDialogTrigger>
-            <Button>
-              {" "}
-              <X className="w-5  h-5 " />
-              Delete Message
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={onDeleteMessage}>
-                Continue
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+    <div>
+      <main className="flex-1 overflow-y-auto p-4">
+        <div className="space-y-4">
+          {}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-start justify-between">
+              <p className="text-gray-800">{message.content}</p>
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <Button
+                    className="text-gray-500 hover:text-red-500"
+                    size="icon"
+                    variant="ghost"
+                  >
+                    <TrashIcon className="h-5 w-5" />
+                    <span className="sr-only">Delete message</span>
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your account and remove your data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={onDeleteMessage}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    //   <Card className="flex flex-col h-screen">
+    //     <CardHeader className="flex-1 overflow-y-auto p-6">
+    //       <CardTitle className="text-gray-800">{message.content}</CardTitle>
 
-        <CardDescription>Card Description</CardDescription>
-      </CardHeader>
-    </Card>
+    //       <CardDescription>Card Description</CardDescription>
+    //     </CardHeader>
+    //   </Card>
   );
 }
 
