@@ -11,9 +11,8 @@ import { ApiResponse } from "@/types/apiResponse";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Loader, Loader2, RefreshCcw } from "lucide-react";
+import {  Loader2, RefreshCcw } from "lucide-react";
 import MessageCard from "@/components/MessageCard";
-import { User } from "next-auth";
 
 function page() {
   const [messages, setMessages] = useState<Message[]>([]);

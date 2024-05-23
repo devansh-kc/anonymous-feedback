@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
@@ -18,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import Link from "next/link";
 
 function page() {
   const router = useRouter();
@@ -43,11 +42,19 @@ function page() {
     }
   }
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
+      <div className="mx-auto w-full max-w-md space-y-6">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+            Forgot Password
+          </h1>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Enter your email to reset your password.
+          </p>
+        </div>
         <Form {...form}>
           <form
-            className="space-y-8"
+            className="space-y-4"
             onSubmit={form.handleSubmit(OnHandleSubmit)}
           >
             <FormField
@@ -55,16 +62,31 @@ function page() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Email address</FormLabel>
                   <FormControl>
-                    <Input placeholder="please enter your email" {...field} />
+                    <Input
+                      placeholder="please enter your email"
+                      type="email"
+                      required
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="w-full">
+              Submit
+            </Button>
           </form>
         </Form>
+        <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+          <Link
+            className="font-medium text-gray-900 hover:underline dark:text-gray-50"
+            href="/sign-up"
+          >
+            Back to Sign Up
+          </Link>
+        </div>
       </div>
     </div>
   );

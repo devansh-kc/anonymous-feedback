@@ -1,7 +1,8 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -51,8 +52,16 @@ function page() {
     }
   }
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
+      <div className="mx-auto w-full max-w-md space-y-6">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+            Verify your account
+          </h1>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Enter the 6-digit code sent to your email.
+          </p>
+        </div>
         <Form {...form}>
           <form
             className="space-y-8"
@@ -64,7 +73,7 @@ function page() {
                 name="code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>code</FormLabel>
+                    <FormLabel>Verification Code</FormLabel>
                     <FormControl>
                       <InputOTP maxLength={6} {...field}>
                         <InputOTPGroup>
@@ -81,9 +90,20 @@ function page() {
                 )}
               />
             </div>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="w-full">
+              Verify
+            </Button>
           </form>
         </Form>
+        <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+          Didn't receive the code?
+          <Link
+            className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+            href="#"
+          >
+            Resend
+          </Link>
+        </div>
       </div>
     </div>
   );

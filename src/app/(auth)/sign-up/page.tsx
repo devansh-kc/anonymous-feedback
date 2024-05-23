@@ -12,6 +12,7 @@ import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/apiResponse";
 import { Button } from "@/components/ui/button";
 import { useDebounceCallback } from "usehooks-ts";
+import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
@@ -22,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Loader, Loader2 } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
 
 function page() {
   const [username, setUserName] = useState("");
@@ -99,13 +100,16 @@ function page() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
+      {" "}
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Welcome Back to True Feedback
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+            Create your account
           </h1>
-          <p className="mb-4">Sign up to instigate a secret conversations</p>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Get started with our platform today.
+          </p>
         </div>
         <div>
           <Form {...form}>
@@ -180,15 +184,16 @@ function page() {
                   </FormItem>
                 )}
               />
-              <div className="flex items-center justify-normal mx-3">
-                <Switch
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="show-password"
                   onClick={() => {
                     setTogglePassword(!togglePassword);
                   }}
-                />{" "}
-                <p className="mx-3">Show Password</p>
+                />
+                <Label htmlFor="show-password">Show password</Label>{" "}
               </div>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     <Loader className="mr-3 h-4 w-4 animate-spin" /> Please wait
