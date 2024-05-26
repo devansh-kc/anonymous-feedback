@@ -74,7 +74,7 @@ function page() {
         setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessages, toast]
+    [setIsLoading, setMessages]
   );
   useEffect(() => {
     if (!session || !session.user) return;
