@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       return Response.json(
         {
           success: false,
-          message: "user not found",
+          message: "We cannot find any user by the email that you've provided ",
         },
         { status: 404 }
       );

@@ -17,6 +17,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { AxiosError } from "axios";
+import { ApiResponse } from "@/types/apiResponse";
 
 function page() {
   const router = useRouter();
@@ -30,13 +32,14 @@ function page() {
   async function OnHandleSubmit(
     data: z.infer<typeof checkEmailForForgotPassword>
   ) {
+    console.log(data);
     const response = await axios.post("/api/forgot-pasword", data);
-    if (response.status == 200) {
+    if (response.data.success) {
       router.push(`/forgot-password/${data.email}`);
     } else {
       toast({
-        title: "email is incorrect ",
-        description: response.data,
+        title: "Error ",
+        description: response.data.message,
         variant: "destructive",
       });
     }
