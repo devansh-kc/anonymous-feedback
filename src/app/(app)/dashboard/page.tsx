@@ -11,7 +11,7 @@ import { ApiResponse } from "@/types/apiResponse";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import {  Loader2, RefreshCcw } from "lucide-react";
+import { Loader2, RefreshCcw } from "lucide-react";
 import MessageCard from "@/components/MessageCard";
 
 function page() {
@@ -45,7 +45,7 @@ function page() {
     } finally {
       setIsSwitchLoading(false);
     }
-  }, [setValue]);
+  }, [setValue, toast]);
   const fetchMessage = useCallback(
     async (refresh: boolean = false) => {
       setIsLoading(true);
@@ -74,7 +74,7 @@ function page() {
         setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessages]
+    [setIsLoading, setMessages, toast]
   );
   useEffect(() => {
     if (!session || !session.user) return;
