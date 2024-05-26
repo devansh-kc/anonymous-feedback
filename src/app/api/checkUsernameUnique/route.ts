@@ -16,7 +16,6 @@ export async function GET(request: Request) {
       username: searchParams.get("username"),
     };
     const result = UserNameQuerySchema.safeParse(queryParam);
-    console.log("console.log from check username uniquee ", result);
     if (!result.success) {
       const usernameError = result.error.format().username?._errors || [];
       return Response.json(
@@ -53,7 +52,6 @@ export async function GET(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.log("Error from check username unique", error);
     return Response.json(
       {
         success: false,

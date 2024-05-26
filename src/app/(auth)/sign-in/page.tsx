@@ -57,7 +57,6 @@ export default function SignIn() {
         variant: "destructive",
       });
     }
-    console.log(result);
 
     if (result?.url) {
       router.replace("/dashboard");

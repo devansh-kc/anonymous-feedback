@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { NextRequest } from "next/server";
+import { EyeIcon } from "lucide-react";
 interface passwordProp {
   password: string;
 }
@@ -48,8 +49,8 @@ function page(request: NextRequest) {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen ">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white ">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onChangePassword)}
@@ -60,19 +61,23 @@ function page(request: NextRequest) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>password</FormLabel>
+                  <FormLabel>New Password</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter the password"
+                      autoComplete="off"
+                      className="pr-10"
+                      id="new-password"
+                      placeholder="Enter new password"
                       type="password"
-                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="w-full">
+              Submit
+            </Button>
           </form>
         </Form>
       </div>

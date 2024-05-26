@@ -21,7 +21,6 @@ export async function POST(request: NextRequest) {
     const ExistingUser = await UserModel.findOne({
       email,
     });
-    console.log(ExistingUser);
 
     if (!ExistingUser) {
       return Response.json(
@@ -54,7 +53,6 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
     return Response.json(
       {
         success: false,

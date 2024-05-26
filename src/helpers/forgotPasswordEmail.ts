@@ -17,7 +17,6 @@ export async function sendForgotPasswordEmail(
     });
     return { success: true, message: "verification email sent Successfully " };
   } catch (emailError) {
-    console.log("Error sending while verification email ", emailError);
     return { success: false, message: "Failed to send verification email" };
   }
 }

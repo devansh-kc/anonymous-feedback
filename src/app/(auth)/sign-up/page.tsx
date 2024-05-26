@@ -69,7 +69,6 @@ function page() {
     checkUserNameUnique();
   }, [username]);
   const onHandleSubmit = async (data: z.infer<typeof signUpSchema>) => {
-    console.log(data);
     setIsCheckingUserName(true);
     try {
       const response = await axios.post<ApiResponse>("/api/sign-up", data);
@@ -87,7 +86,6 @@ function page() {
       router.replace(`/verify/${username}`);
       setIsSubmitting(false);
     } catch (error) {
-      console.log("error from sign up ", error);
       const axiosError = error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data?.message;
       toast({

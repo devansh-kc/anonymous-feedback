@@ -32,7 +32,6 @@ function page() {
   async function OnHandleSubmit(
     data: z.infer<typeof checkEmailForForgotPassword>
   ) {
-    console.log(data);
     const response = await axios.post("/api/forgot-pasword", data);
     if (response.data.success) {
       router.push(`/forgot-password/${data.email}`);

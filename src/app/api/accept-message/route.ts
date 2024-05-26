@@ -67,7 +67,6 @@ export async function GET(request: Request) {
 
   const session = await getServerSession(authOptions);
   const user: User = session?.user;
-  console.log(user);
 
   if (!session || !user) {
     return Response.json(
@@ -99,7 +98,6 @@ export async function GET(request: Request) {
       );
     }
   } catch (error) {
-    console.log(error, "error from accept  message");
     return Response.json(
       {
         success: true,

@@ -48,7 +48,6 @@ function VerifyAccount() {
       });
       router.replace("/sign-in");
     } catch (error: any) {
-      console.log("error from verify email  ", error);
       const axiosError = error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data?.message;
       toast({
