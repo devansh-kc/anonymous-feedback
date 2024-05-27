@@ -96,7 +96,7 @@ function Page() {
           </form>
         </Form>
         <div className="text-center text-sm text-gray-600 dark:text-gray-400">
-          Didn't receive the code?
+          Didn&lsquo;t receive the code?
           <Link
             className="font-medium text-blue-600 hover:underline dark:text-blue-500"
             href="#"
