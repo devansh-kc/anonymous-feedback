@@ -20,7 +20,7 @@ import { EyeIcon } from "lucide-react";
 interface passwordProp {
   password: string;
 }
-function Page(request: Request) {
+function Page() {
   const params = useParams();
   const { toast } = useToast();
   const router = useRouter();
