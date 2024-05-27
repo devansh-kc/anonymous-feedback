@@ -20,7 +20,7 @@ import Link from "next/link";
 import { AxiosError } from "axios";
 import { ApiResponse } from "@/types/apiResponse";
 
-function page() {
+function Page() {
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof checkEmailForForgotPassword>>({
@@ -94,4 +94,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

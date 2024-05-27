@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Loader, Loader2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 
-function page() {
+function Page() {
   const [username, setUserName] = useState("");
   const [userNameMessage, setUserNameMessage] = useState("");
   const [isCheckingUserName, setIsCheckingUserName] = useState(false);
@@ -219,4 +219,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

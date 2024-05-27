@@ -80,7 +80,7 @@ function Page() {
     if (!session || !session.user) return;
     fetchMessage();
     fetchAcceptMessage();
-  }, [fetchAcceptMessage, fetchMessage]);
+  }, [fetchAcceptMessage, fetchMessage, session]);
   const handleSwitchChange = async () => {
     try {
       const response = await axios.post<ApiResponse>("/api/accept-message", {

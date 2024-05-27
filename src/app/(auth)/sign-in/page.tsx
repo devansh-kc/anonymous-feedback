@@ -125,7 +125,7 @@ export default function SignIn() {
                 </p>
                 <CardFooter className="flex items-center justify-between">
                   <Link className="text-sm underline" href="/sign-up">
-                    Don't have an account? Sign up
+                    Don&apos;t have an account? Sign up
                   </Link>
                   <Button type="submit" disabled={isSubmitting}>
                     {isSubmitting ? (

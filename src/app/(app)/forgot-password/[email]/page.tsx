@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/input-otp";
 import axios from "axios";
 
-function page() {
+function Page() {
   const router = useRouter();
   const params = useParams();
   const { toast } = useToast();
@@ -109,4 +109,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

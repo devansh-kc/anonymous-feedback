@@ -22,7 +22,7 @@ import axios, { Axios } from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 
-function page() {
+function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuggestButtonLoading, setIsSuggestButtonLoading] = useState(false);
   const { toast } = useToast();
@@ -179,4 +179,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
