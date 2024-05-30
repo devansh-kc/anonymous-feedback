@@ -77,7 +77,6 @@ export async function GET(request: Request) {
       { status: 401 }
     );
   }
-  const userId = user._id;
   const foundUser = await UserModel.findById(user._id);
   try {
     if (!foundUser) {

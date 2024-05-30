@@ -11,14 +11,14 @@ import { ApiResponse } from "@/types/apiResponse";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, RefreshCcw } from "lucide-react";
+import { Loader2, RefreshCcw, LoaderPinwheelIcon } from "lucide-react";
 import MessageCard from "@/components/MessageCard";
-
 function Page() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
+  const [hostName, setHostName] = useState("");
   function handleDeleteMessage(messageId: string) {
     setMessages(messages.filter((message) => message._id !== messageId));
   }
@@ -81,10 +81,11 @@ function Page() {
     fetchMessage();
     fetchAcceptMessage();
   }, [fetchAcceptMessage, fetchMessage, session]);
+
   const handleSwitchChange = async () => {
     try {
       const response = await axios.post<ApiResponse>("/api/accept-message", {
-        acceptMessage: !acceptMessage,
+        acceptMessages: !acceptMessage,
       });
       setValue("acceptMessage", !acceptMessage);
       toast({
@@ -102,11 +103,24 @@ function Page() {
       });
     }
   };
+
+  useEffect(() => {
+    if (process) {
+      setHostName(window.location.host);
+    }
+  }, []);
   const username = session?.user.username;
-  const baseUrl = `${window.location.protocol}//${window.location.host}`;
-  const profileUrl = `${baseUrl}/u/${username}`;
-  if (!session || !session.user) {
-    return <div>please Log In</div>;
+  const profileUrl = `${hostName}/u/${username}`;
+
+  if (!session || !session?.user) {
+    return (
+      <div className="flex h-screen  items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <LoaderPinwheelIcon className="h-12 w-12 animate-spin" />
+          <p className="text-lg font-medium">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   function copyToClipboard() {

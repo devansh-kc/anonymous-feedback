@@ -52,19 +52,20 @@ function Page() {
         username: params.username,
         content: data.content,
       });
-
       if (response.data.success) {
         toast({
           title: "success",
           description: response.data.message,
         });
       }
-      form.setValue("content","")
+
+      form.setValue("content", "");
     } catch (error: any) {
+      console.log(error);
       toast({
         title: "error",
-        description: error.message,
-        variant: "destructive",
+        description: error.response.data.message,
+        variant: "default",
       });
     } finally {
       setIsLoading(false);
@@ -130,7 +131,7 @@ function Page() {
               Send It
             </Button>
           )}
-        </form> 
+        </form>
       </Form>
       <div className="space-y-4 my-8">
         <div className="space-y-2">

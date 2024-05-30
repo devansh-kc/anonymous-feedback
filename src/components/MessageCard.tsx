@@ -1,12 +1,5 @@
 "use client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -44,12 +37,11 @@ function MessageCard({ message, onMessageDelete }: messageCardProp) {
     <div>
       <main className="flex-1 overflow-y-auto p-4">
         <div className="space-y-4">
-          {}
           <div className="bg-white rounded-lg shadow p-4">
             <div className="flex items-start justify-between">
               <p className="text-gray-800">{message.content}</p>
               <AlertDialog>
-                <AlertDialogTrigger>
+                <AlertDialogTrigger asChild>
                   <Button
                     className="text-gray-500 hover:text-red-500"
                     size="icon"

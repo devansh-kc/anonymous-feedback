@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       return Response.json(
         {
           success: false,
-          message: "user is not accepting message  ",
+          message: "user is not accepting message",
         },
         { status: 403 }
       );
