@@ -50,14 +50,19 @@ export default function SignIn() {
       identifier: data.identifier,
       password: data.password,
     });
+    if (
+      result?.error == "Error: Please verify your account first before login"
+    ) {
+      router.replace(`/verify/${data.identifier}`);
+    }
     if (result?.error) {
+      console.log(result);
       toast({
         title: "Sign in failed",
         description: result.error,
         variant: "destructive",
       });
     }
-
     if (result?.url) {
       router.replace("/dashboard");
     }

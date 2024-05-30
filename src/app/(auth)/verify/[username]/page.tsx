@@ -10,6 +10,7 @@ import axios from "axios";
 import { AxiosError } from "axios";
 import { ApiResponse } from "@/types/apiResponse";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import {
   Form,
   FormControl,
@@ -58,29 +59,28 @@ function VerifyAccount() {
     }
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
+      <div className="mx-auto w-full max-w-md space-y-6">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Welcome Back to True Feedback
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+            Verify your account
           </h1>
-          <p className="mb-4">Verify you account</p>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Enter the 6-digit code sent to your email.
+          </p>
         </div>
-        <div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(validateOTP)}
-              className="space-y-6"
-            >
+        <Form {...form}>
+          <form className="space-y-8" onSubmit={form.handleSubmit(validateOTP)}>
+            <div className="justify-center">
               <FormField
                 control={form.control}
                 name="code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>code</FormLabel>
+                    <FormLabel>Verification Code</FormLabel>
                     <FormControl>
                       <InputOTP maxLength={6} {...field}>
-                        <InputOTPGroup >
+                        <InputOTPGroup>
                           <InputOTPSlot index={0} />
                           <InputOTPSlot index={1} />
                           <InputOTPSlot index={2} />
@@ -90,16 +90,23 @@ function VerifyAccount() {
                         </InputOTPGroup>
                       </InputOTP>
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
-              <div className="text-left text-sm">
-                Enter your one-time password.
-              </div>
-              <Button type="submit">Submit</Button>
-            </form>
-          </Form>
+            </div>
+            <Button type="submit" className="w-full">
+              Verify
+            </Button>
+          </form>
+        </Form>
+        <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+          Didn&lsquo;t receive the code?
+          <Link
+            className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+            href="#"
+          >
+            Resend
+          </Link>
         </div>
       </div>
     </div>
