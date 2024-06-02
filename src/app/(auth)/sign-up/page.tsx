@@ -24,6 +24,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Loader, Loader2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
+import DemoUserButton from "@/components/DemoUser/Page";
 
 function Page() {
   const [username, setUserName] = useState("");
@@ -200,7 +202,9 @@ function Page() {
                   "Sign up"
                 )}
               </Button>
+              <Separator />
             </form>
+            <DemoUserButton />
           </Form>
           <div className="text-center mt-4">
             <p>

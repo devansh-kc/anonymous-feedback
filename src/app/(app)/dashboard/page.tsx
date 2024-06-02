@@ -80,7 +80,7 @@ function Page() {
     if (!session || !session.user) return;
     fetchMessage();
     fetchAcceptMessage();
-  }, [fetchAcceptMessage, fetchMessage, session]);
+  }, [fetchAcceptMessage,fetchMessage]);
 
   const handleSwitchChange = async () => {
     try {

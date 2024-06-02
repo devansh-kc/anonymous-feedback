@@ -31,6 +31,8 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import DemoUserButton from "@/components/DemoUser/Page";
 export default function SignIn() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -67,6 +69,7 @@ export default function SignIn() {
       router.replace("/dashboard");
     }
   }
+
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -143,9 +146,11 @@ export default function SignIn() {
                     )}
                   </Button>{" "}
                 </CardFooter>
+                <Separator />
               </form>
             </Form>
           </CardContent>{" "}
+          <DemoUserButton/>
         </Card>
       </div>
     </div>
