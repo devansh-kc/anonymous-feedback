@@ -29,25 +29,38 @@ function Page() {
       email: "",
     },
   });
+
   async function OnHandleSubmit(
     data: z.infer<typeof checkEmailForForgotPassword>
   ) {
-    const response = await axios.post("/api/forgot-pasword", data);
-    if (response.data.success) {
+    try {
+      const response = await axios.post<ApiResponse>("/api/forgot-password", {
+        email: data.email,
+      });
+      console.log(data, response);
+
+      if (!response.data.success) {
+        toast({
+          title: "Error",
+          description: response.data.message,
+          variant: "destructive",
+        });
+      }
       router.push(`/forgot-password/${data.email}`);
-    } else {
+    } catch (error: any) {
+      console.log(error);
       toast({
         title: "Error ",
-        description: response.data.message,
+        description: error.response.data.message,
         variant: "destructive",
       });
     }
   }
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center  px-4 py-12 dark">
       <div className="mx-auto w-full max-w-md space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+          <h1 className="text-3xl font-bold tracking-tight ">
             Forgot Password
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
@@ -81,11 +94,8 @@ function Page() {
             </Button>
           </form>
         </Form>
-        <div className="text-center text-sm text-gray-600 dark:text-gray-400">
-          <Link
-            className="font-medium text-gray-900 hover:underline dark:text-gray-50"
-            href="/sign-up"
-          >
+        <div className="text-center text-sm  ">
+          <Link className="font-normal " href="/sign-up">
             Back to Sign Up
           </Link>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,8 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
-import { NextRequest } from "next/server";
-import { EyeIcon } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 interface passwordProp {
   password: string;
 }
@@ -24,6 +23,7 @@ function Page() {
   const params = useParams();
   const { toast } = useToast();
   const router = useRouter();
+  const [passwordType, setPasswordType] = useState(true);
 
   const form = useForm<passwordProp>({
     defaultValues: {
@@ -49,39 +49,52 @@ function Page() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen ">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white ">
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onChangePassword)}
-            className="space-y-8"
-          >
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>New Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      autoComplete="off"
-                      className="pr-10"
-                      id="new-password"
-                      placeholder="Enter new password"
-                      type="password"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
-          </form>
-        </Form>
+    <>
+      <div className="flex flex-col justify-center items-center align-middle h-screen dark select-none ">
+        <h1 className="text-2xl font-bold ">Change your password</h1>
+        <div className="w-full max-w-md p-8 space-y-8  ">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onChangePassword)}
+              className="space-y-8 "
+            >
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>New Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        autoComplete="off"
+                        className="pr-10 " 
+                        id="new-password"
+                        placeholder="Enter new password"
+                        type={passwordType ? "password" : "text"}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="align-middle items-center flex ">
+                <Checkbox id="showPassword" className="mr-2 " />{" "}
+                <label
+                  htmlFor="showPassword"
+                  onClick={() => setPasswordType((prevType) => !prevType)}
+                >
+                  {" "}
+                  Show Password
+                </label>
+              </div>
+              <Button type="submit" className="w-full  ">
+                Submit
+              </Button>
+            </form>
+          </Form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

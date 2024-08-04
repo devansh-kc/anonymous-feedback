@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Loader } from "lucide-react";
+import { Eye, Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { signInSchema } from "@/schemas/signIn.schema";
 import z from "zod";
@@ -33,9 +33,11 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import DemoUserButton from "@/components/DemoUser/Page";
+import ThemeConverter from "@/components/ThemeConverter";
 export default function SignIn() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const [passwordType, setPasswordType] = useState(true);
   const router = useRouter();
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -47,6 +49,7 @@ export default function SignIn() {
   });
 
   async function onHandleSignIn(data: z.infer<typeof signInSchema>) {
+    console.log(data);
     const result = await signIn("credentials", {
       redirect: false,
       identifier: data.identifier,
@@ -70,88 +73,109 @@ export default function SignIn() {
     }
   }
 
-
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div>
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Sign in to your account</CardTitle>
-            <CardDescription>
-              Enter your email and password below to access your account.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onHandleSignIn)}
-                className="space-y-6"
-              >
-                <FormField
-                  control={form.control}
-                  name="identifier"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username || email</FormLabel>
-                      <FormControl>
-                        <Input
-                          required
-                          placeholder="write username or email .... "
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(e);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>password</FormLabel>
-                      <FormControl>
-                        <Input
-                          required
-                          type="password"
-                          placeholder="enter password .... "
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <p>
-                  <Link className="text-sm underline" href={"/forgot-password"}>
-                    Forgot password
-                  </Link>
-                </p>
-                <CardFooter className="flex items-center justify-between">
-                  <Link className="text-sm underline" href="/sign-up">
-                    Don&apos;t have an account? Sign up
-                  </Link>
-                  <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? (
-                      <>
-                        <Loader className="mr-3 h-4 w-4 animate-spin" /> Please
-                        wait
-                      </>
-                    ) : (
-                      "Sign In"
+    <div>
+      <div className="flex flex-col  items-center justify-center h-screen shadow-xl    ">
+        <div>
+          <Card className="w-full max-w-md">
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl">
+                Sign in to your account
+              </CardTitle>
+              <CardDescription>
+                Enter your email and password below to access your account.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onHandleSignIn)}
+                  className="space-y-6"
+                >
+                  <FormField
+                    control={form.control}
+                    name="identifier"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username || email</FormLabel>
+                        <FormControl>
+                          <Input
+                            required
+                            placeholder="write username or email .... "
+                            {...field}
+                            onChange={(e) => {
+                              field.onChange(e);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )}
-                  </Button>{" "}
-                </CardFooter>
-                <Separator />
-              </form>
-            </Form>
-          </CardContent>{" "}
-          <DemoUserButton/>
-        </Card>
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>password</FormLabel>
+                        <FormControl>
+                          <Input
+                            required
+                            type={passwordType ? "password" : "text"}
+                            placeholder="enter password .... "
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="flex  justify-between items-center align-middle">
+                    <p>
+                      <Link
+                        className="text-sm underline "
+                        href={"/forgot-password"}
+                      >
+                        Forgot password
+                      </Link>
+                    </p>
+                    <p
+                      className="text-sm cursor-pointer"
+                      onClick={() => setPasswordType((password) => !password)}
+                    >
+                      Show Password
+                    </p>
+                  </div>
+                  <CardFooter className="flex flex-col ">
+                    <Link
+                      className="text-sm underline p-2 m-2 "
+                      href="/sign-up"
+                    >
+                      Don&apos;t have an account? Sign up
+                    </Link>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader className="mr-3 h-4 w-4 animate-spin" />{" "}
+                          Please wait
+                        </>
+                      ) : (
+                        "Sign In"
+                      )}
+                    </Button>{" "}
+                  </CardFooter>
+                  <Separator />
+                </form>
+              </Form>
+            </CardContent>{" "}
+            <DemoUserButton />
+          </Card>
+        </div>
       </div>
     </div>
   );

@@ -80,7 +80,7 @@ function Page() {
     if (!session || !session.user) return;
     fetchMessage();
     fetchAcceptMessage();
-  }, [fetchAcceptMessage,fetchMessage]);
+  }, [fetchAcceptMessage, fetchMessage]);
 
   const handleSwitchChange = async () => {
     try {
@@ -114,7 +114,7 @@ function Page() {
 
   if (!session || !session?.user) {
     return (
-      <div className="flex h-screen  items-center justify-center">
+      <div className="flex h-screen  items-center justify-center ">
         <div className="flex flex-col items-center space-y-4">
           <LoaderPinwheelIcon className="h-12 w-12 animate-spin" />
           <p className="text-lg font-medium">Loading...</p>
@@ -131,7 +131,7 @@ function Page() {
     });
   }
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded w-full max-w-6xl ">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
 
       <div className="mb-4">
@@ -141,9 +141,11 @@ function Page() {
             type="text"
             value={profileUrl}
             disabled
-            className="input input-bordered w-full p-2 mr-2"
+            className="input input-bordered w-full p-2 mr-2 rounded-md"
           />
-          <Button onClick={copyToClipboard}>Copy</Button>
+          <Button onClick={copyToClipboard}>
+            Copy
+          </Button>
         </div>
       </div>
 
@@ -161,7 +163,7 @@ function Page() {
       <Separator />
 
       <Button
-        className="mt-4"
+        className="mt-4 "
         variant="outline"
         onClick={(e) => {
           e.preventDefault();
@@ -169,9 +171,10 @@ function Page() {
         }}
       >
         {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Loader2 className="h-4 w-4 animate-spin text-white" />
+          
         ) : (
-          <RefreshCcw className="h-4 w-4" />
+          <RefreshCcw className="h-4 w-4 text-white" />
         )}
       </Button>
       <div className="flex flex-col h-screen">

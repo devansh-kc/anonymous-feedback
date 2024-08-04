@@ -100,11 +100,11 @@ function Page() {
   };
 
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center  px-4 py-12 ">
       {" "}
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+      <div className="w-full max-w-md p-8 space-y-8  rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+          <h1 className="text-3xl font-bold  ">
             Create your account
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
@@ -193,7 +193,7 @@ function Page() {
                 />
                 <Label htmlFor="show-password">Show password</Label>{" "}
               </div>
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
+              <Button type="submit" className="w-full " disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     <Loader className="mr-3 h-4 w-4 animate-spin" /> Please wait

@@ -40,8 +40,15 @@ function Page() {
         email: params.email,
         code: data.code,
       });
-      if ((response.status = 200)) {
+      if (response.data.status ) {
         router.push(`/forgot-password/${params.email}/change-password`);
+      } else {
+        console.log(response)
+        toast({
+          title: "error",
+          description: response.data.message,
+          variant: "destructive",
+        });
       }
     } catch (error: any) {
       toast({
@@ -52,10 +59,10 @@ function Page() {
     }
   }
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center px-4 py-12 dark">
       <div className="mx-auto w-full max-w-md space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+          <h1 className="text-3xl font-bold tracking-tight">
             Verify your account
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">

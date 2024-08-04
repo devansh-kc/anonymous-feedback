@@ -35,11 +35,11 @@ function MessageCard({ message, onMessageDelete }: messageCardProp) {
   }
   return (
     <div>
-      <main className="flex-1 overflow-y-auto p-4">
+      <main className="flex-1 overflow-y-auto p-3 m-4 rounded-lg ">
         <div className="space-y-4">
-          <div className="bg-white rounded-lg shadow p-4">
-            <div className="flex items-start justify-between">
-              <p className="text-gray-800">{message.content}</p>
+          <div className=" rounded-lg shadow p-4">
+            <div className="flex items-start justify-between align-middle">
+              <p className="">{message.content}</p>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button

@@ -18,7 +18,7 @@ export async function PATCH(request: NextRequest) {
         { status: 404 }
       );
     }
-    const hashedPassword = await bcrypt.hash(password, 9);
+    const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
     await user.save();
 
