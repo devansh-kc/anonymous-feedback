@@ -49,7 +49,6 @@ export default function SignIn() {
   });
 
   async function onHandleSignIn(data: z.infer<typeof signInSchema>) {
-    console.log(data);
     const result = await signIn("credentials", {
       redirect: false,
       identifier: data.identifier,
@@ -61,7 +60,6 @@ export default function SignIn() {
       router.replace(`/verify/${data.identifier}`);
     }
     if (result?.error) {
-      console.log(result);
       toast({
         title: "Sign in failed",
         description: result.error,

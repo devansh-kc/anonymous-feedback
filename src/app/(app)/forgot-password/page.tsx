@@ -37,7 +37,6 @@ function Page() {
       const response = await axios.post<ApiResponse>("/api/forgot-password", {
         email: data.email,
       });
-      console.log(data, response);
 
       if (!response.data.success) {
         toast({

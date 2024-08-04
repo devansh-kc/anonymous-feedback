@@ -43,7 +43,6 @@ function Page() {
       if (response.data.status ) {
         router.push(`/forgot-password/${params.email}/change-password`);
       } else {
-        console.log(response)
         toast({
           title: "error",
           description: response.data.message,
