@@ -93,7 +93,7 @@ function Page() {
     }
   }
   return (
-    <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
+    <div className="container mx-auto my-8 p-6  rounded max-w-4xl">
       <h1 className="text-4xl font-bold mb-6 text-center">
         Public Profile Link
       </h1>
@@ -146,11 +146,11 @@ function Page() {
         </div>
         <Card>
           <CardHeader className="font-bold "> Messages</CardHeader>
-          <CardContent className="flex flex-col space-y-4">
+          <CardContent className="flex flex-col space-y-4 dark:text-white">
             {text == ""
               ? StringSplit(initialMessageString).map((data, index) => (
                   <Button
-                    className="bg-transparent border  text-black hover:bg-white"
+                    className="dark:bg-transparent dark:text-white   border   "
                     key={index}
                     onClick={() => handleTextMessage(data)}
                   >
@@ -159,7 +159,7 @@ function Page() {
                 ))
               : StringSplit(text).map((data, index) => (
                   <Button
-                    className="bg-transparent border  text-black hover:bg-white"
+                    className="bg-transparent border  dark"
                     key={index}
                     onClick={() => handleTextMessage(data)}
                   >
