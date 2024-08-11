@@ -59,13 +59,13 @@ function VerifyAccount() {
     }
   };
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-gray-100 px-4 py-12 d">
       <div className="mx-auto w-full max-w-md space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 ">
             Verify your account
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-sm text-gray-600 ">
             Enter the 6-digit code sent to your email.
           </p>
         </div>
@@ -99,10 +99,10 @@ function VerifyAccount() {
             </Button>
           </form>
         </Form>
-        <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+        <div className="text-center text-sm text-gray-600 ">
           Didn&lsquo;t receive the code?
           <Link
-            className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+            className="font-medium text-blue-600 hover:underline "
             href="#"
           >
             Resend

@@ -146,11 +146,11 @@ function Page() {
         </div>
         <Card>
           <CardHeader className="font-bold "> Messages</CardHeader>
-          <CardContent className="flex flex-col space-y-4 dark:text-white">
+          <CardContent className="flex flex-col space-y-4 ">
             {text == ""
               ? StringSplit(initialMessageString).map((data, index) => (
                   <Button
-                    className="dark:bg-transparent dark:text-white   border   "
+                    className="border"
                     key={index}
                     onClick={() => handleTextMessage(data)}
                   >
@@ -159,7 +159,7 @@ function Page() {
                 ))
               : StringSplit(text).map((data, index) => (
                   <Button
-                    className="bg-transparent border  dark"
+                    className="bg-transparent border  "
                     key={index}
                     onClick={() => handleTextMessage(data)}
                   >

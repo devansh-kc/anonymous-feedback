@@ -40,7 +40,7 @@ function Page() {
         email: params.email,
         code: data.code,
       });
-      if (response.data.status ) {
+      if (response.data.status) {
         router.push(`/forgot-password/${params.email}/change-password`);
       } else {
         toast({
@@ -58,13 +58,13 @@ function Page() {
     }
   }
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center px-4 py-12 dark">
+    <div className="flex my-auto flex-col items-center justify-center px-4 py-12 ">
       <div className="mx-auto w-full max-w-md space-y-6">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight">
             Verify your account
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-sm text-gray-600 ">
             Enter the 6-digit code sent to your email.
           </p>
         </div>
@@ -73,7 +73,7 @@ function Page() {
             className="space-y-8"
             onSubmit={form.handleSubmit(OnHandleSubmit)}
           >
-            <div className="justify-center">
+            <div className="">
               <FormField
                 control={form.control}
                 name="code"
@@ -101,12 +101,9 @@ function Page() {
             </Button>
           </form>
         </Form>
-        <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+        <div className="text-center text-sm text-gray-600 ">
           Didn&lsquo;t receive the code?
-          <Link
-            className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-            href="#"
-          >
+          <Link className="font-medium text-blue-600 hover:underline " href="#">
             Resend
           </Link>
         </div>

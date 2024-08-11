@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React from "react";
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 
-const ThemeConverter = () => {
+const ThemeConverter = (className: any) => {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -16,12 +16,13 @@ const ThemeConverter = () => {
       localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+
       localStorage.setItem("theme", "light");
     }
   }, [darkMode]);
 
   return (
-    <div>
+    <div className={className}>
       {" "}
       {darkMode ? (
         <Sun

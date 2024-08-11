@@ -5,6 +5,7 @@ import AuthProvider from "./context/AuthProvider";
 import { Toaster } from "@/components/ui/toaster";
 
 import ThemeConverter from "@/components/ThemeConverter";
+import { useSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" >
       <AuthProvider>
-        <body className={`${inter.className}  dark:bg-black     `}>
-        <div className="flex items-end justify-end align-top text-left">
-        <ThemeConverter />
-      </div>
-
+        <body className={`${inter.className}      `}>
           {children}
 
           <Toaster />

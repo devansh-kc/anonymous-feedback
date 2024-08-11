@@ -141,11 +141,9 @@ function Page() {
             type="text"
             value={profileUrl}
             disabled
-            className="input input-bordered w-full p-2 mr-2 rounded-md"
+            className="input border-2 w-full p-2 mr-2 rounded-md"
           />
-          <Button onClick={copyToClipboard}>
-            Copy
-          </Button>
+          <Button onClick={copyToClipboard}>Copy</Button>
         </div>
       </div>
 
@@ -171,10 +169,9 @@ function Page() {
         }}
       >
         {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin text-white" />
-          
+          <Loader2 className="h-4 w-4 animate-spin text-foreground" />
         ) : (
-          <RefreshCcw className="h-4 w-4 text-white" />
+          <RefreshCcw className="h-4 w-4 text-foreground " />
         )}
       </Button>
       <div className="flex flex-col h-screen">

@@ -56,13 +56,13 @@ function Page() {
     }
   }
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center  px-4 py-12 dark">
+    <div className="grid rounded-lg  my-auto  items-center p-5   ">
       <div className="mx-auto w-full max-w-md space-y-6">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight ">
             Forgot Password
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-sm text-gray-600">
             Enter your email to reset your password.
           </p>
         </div>

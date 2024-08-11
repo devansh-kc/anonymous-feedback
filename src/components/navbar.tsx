@@ -11,39 +11,34 @@ function Navbar() {
   const user: User = session?.user;
 
   return (
-    <nav className="p-4 md:p-6 dark">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <a
-          href="#"
-          className={`text-xl font-bold mb-4 md:mb-0`}
-        >
+    <nav className=" flex m-5  p-5  justify-between align-middle items-center ">
+      <div className="container ">
+        <a href="/" className={`text-xl font-bold mb-4 md:mb-0`}>
           True Feedback
         </a>
-        <div className="justify-center align-middle items-center flex ">
-          {session ? (
-            <>
-              <span className="mr-4">
-                Welcome, {user.username || user.email}
-              </span>
-              <Button
-                onClick={() => signOut()}
-                className={`w-full md:w-auto text-white`}
-                variant="outline"
-              >
-                Logout
-              </Button>
-            </>
-          ) : (
-            <Link href="/sign-in">
-              <Button
-                className="w-full md:w-auto text-white"
-                variant={"outline"}
-              >
-                Login
-              </Button>
-            </Link>
-          )}
-        </div>
+      </div>
+      <div className="justify-center align-middle items-center flex ">
+        {session ? (
+          <>
+            <span className="mr-4 max-sm:hidden">
+              Welcome, {user.username || user.email}
+            </span>
+            <Button
+              onClick={() => signOut()}
+              className={`w-auto text-foreground bg-background hover:none`}
+              variant="outline"
+            >
+              Logout
+            </Button>
+          </>
+        ) : (
+          <Link href="/sign-in">
+            <Button className="w-full md:w-auto text-foreground bg-background" variant={"outline"}>
+              Login
+            </Button>
+          </Link>
+        )}
+        <ThemeConverter className="mr-3 animate-accordion-down" />
       </div>
     </nav>
   );

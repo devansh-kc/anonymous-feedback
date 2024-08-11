@@ -50,7 +50,7 @@ function Page() {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center align-middle h-screen dark select-none ">
+      <div className="flex flex-col justify-center items-center align-middle my-auto ">
         <h1 className="text-2xl font-bold ">Change your password</h1>
         <div className="w-full max-w-md p-8 space-y-8  ">
           <Form {...form}>
